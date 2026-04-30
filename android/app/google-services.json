@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "765190497180",
+    "project_id": "daily-journal-abfa9",
+    "storage_bucket": "daily-journal-abfa9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765190497180:android:7bade4a8cd86409fb09e59",
+        "android_client_info": {
+          "package_name": "com.example.flutter_final_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2PdpzBUmIdXlt8io1cswkEF9Dvv4JdEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

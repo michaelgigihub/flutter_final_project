@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panda Diary - Entries</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .font-plus-jakarta-sans {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {fontFamily: {"body-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], headline: ["Plus Jakarta Sans"], display: ["Plus Jakarta Sans"], body: ["Plus Jakarta Sans"], label: ["Plus Jakarta Sans"]}, colors: {"on-primary-container": "#345d48", "surface-container": "#eeeeee", "surface-tint": "#3d6751", "on-background": "#1a1c1c", "primary-fixed": "#bfedd1", "on-surface": "#1a1c1c", surface: "#f9f9f9", "surface-container-lowest": "#ffffff", "primary-container": "#a8d5ba", "tertiary-fixed-dim": "#bfc9c4", "surface-container-high": "#e8e8e8", "secondary-fixed": "#e4e2e1", "surface-bright": "#f9f9f9", "on-tertiary-fixed-variant": "#404945", "on-primary-fixed": "#002113", "on-secondary-fixed": "#1b1c1c", "on-tertiary-fixed": "#151d1b", "on-error": "#ffffff", "secondary-fixed-dim": "#c8c6c6", "inverse-surface": "#2f3131", "error-container": "#ffdad6", "on-error-container": "#93000a", "on-surface-variant": "#414943", outline: "#717973", secondary: "#5f5e5e", "on-tertiary-container": "#4e5754", "surface-dim": "#dadada", "on-secondary": "#ffffff", background: "#f9f9f9", "on-secondary-container": "#656464", "surface-container-highest": "#e2e2e2", "secondary-container": "#e4e2e1", "outline-variant": "#c1c8c1", "inverse-primary": "#a4d1b6", "surface-variant": "#e2e2e2", "surface-container-low": "#f3f3f4", "tertiary-fixed": "#dce5e0", primary: "#3d6751", error: "#ba1a1a", tertiary: "#57605d", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#474747", "on-primary-fixed-variant": "#254f3a", "tertiary-container": "#c4cdc8", "inverse-on-surface": "#f0f1f1", "primary-fixed-dim": "#a4d1b6", "on-primary": "#ffffff"}, fontSize: {}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}}}};</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-stone-50 dark:bg-stone-950 text-stone-800 dark:text-stone-100 font-body-md min-h-screen flex flex-col pt-[88px] pb-[120px] antialiased">
+<!-- TopAppBar -->
+<header class="bg-orange-50 dark:bg-stone-900 docked full-width top-0 rounded-b-[2rem] border-b-2 border-dashed border-orange-200 dark:border-stone-700 shadow-[0_4px_0_0_rgba(255,179,142,0.1)] fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4">
+<button class="text-orange-400 dark:text-orange-200 hover:bg-orange-100/50 dark:hover:bg-stone-800 transition-colors active:scale-95 transition-transform duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="face_6">face_6</span>
+</button>
+<h1 class="font-plus-jakarta-sans font-bold tracking-tight text-2xl font-black text-orange-400 dark:text-orange-200 italic">Panda Diary</h1>
+<button class="text-orange-400 dark:text-orange-200 hover:bg-orange-100/50 dark:hover:bg-stone-800 transition-colors active:scale-95 transition-transform duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-5 flex flex-col gap-4 mt-2">
+<!-- Header Text & Search -->
+<div class="py-2 flex flex-col gap-4">
+<div>
+<h2 class="text-2xl font-bold font-plus-jakarta-sans text-stone-800 dark:text-stone-100 mb-1">Recent Entries</h2>
+<p class="font-body-md text-stone-500 dark:text-stone-400">Your soft reflections</p>
+</div>
+<!-- Whimsical Search Bar -->
+<div class="relative w-full">
+<input class="w-full bg-white dark:bg-stone-800 border-2 border-dashed border-orange-200 dark:border-stone-700 rounded-2xl py-3 pl-12 pr-4 text-stone-700 dark:text-stone-300 font-plus-jakarta-sans focus:outline-none focus:border-orange-400 transition-colors placeholder-orange-300 dark:placeholder-stone-500 shadow-sm" placeholder="Search your soft thoughts..." type="text"/>
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-orange-400">search</span>
+</div>
+</div>
+<!-- Journal Entry Card 1 -->
+<article class="bg-white dark:bg-stone-800 rounded-[24px] p-4 flex gap-4 items-center border-2 border-dashed border-orange-200 dark:border-stone-700 shadow-[4px_4px_0_0_rgba(255,237,213,1)] dark:shadow-[4px_4px_0_0_rgba(68,64,60,1)] hover:-rotate-1 active:scale-[0.98] transition-all cursor-pointer">
+<div class="w-24 h-24 rounded-[16px] overflow-hidden flex-shrink-0 bg-orange-50 border border-orange-100">
+<img class="w-full h-full object-cover" data-alt="hand-drawn flat illustration of a cute baby panda eating bamboo, soft pastel colors, warm whimsy style, children's book aesthetic, light and airy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmhsKbBbEvdzL9Xzox8DJfAdiatkY2_qzlCsMAzZ-bgw4EF5lhW4QHxqAMxffhTyE5Nfp0RGQEzGtZqi9Y4eWo6bbeM1gYWOpSHVLN8NIY1vMuYHvFhaoL4bUy-iSfc076cmATW4cSGQfmHmAWD2hHg_ratVVsdrmTRBDBQhewetmrNyBA7Jy9zNWwMSQ5ez_6_Hn_DkOu3PP4ZEUv2XqxpA95MGmUM1ZW-c-pj3theeSXlItd6o82kiAq-lgFkwRW0rv-Yzr6ZzmB"/>
+</div>
+<div class="flex-1 py-1 pr-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-orange-100 text-orange-700 font-bold font-plus-jakarta-sans text-[11px] uppercase tracking-wide px-3 py-1 rounded-xl border border-orange-200">Happy</span>
+<span class="font-bold text-[12px] text-stone-400">Today</span>
+</div>
+<h3 class="font-bold text-lg text-stone-800 dark:text-stone-100 mb-1 line-clamp-1 font-plus-jakarta-sans">Morning Bamboo Feast</h3>
+<p class="font-medium text-stone-500 dark:text-stone-400 line-clamp-2 text-sm leading-relaxed">Woke up feeling incredibly refreshed today. The sun was shining perfectly through the window, making everything feel warm.</p>
+</div>
+</article>
+<!-- Journal Entry Card 2 -->
+<article class="bg-white dark:bg-stone-800 rounded-[24px] p-4 flex gap-4 items-center border-2 border-dashed border-orange-200 dark:border-stone-700 shadow-[4px_4px_0_0_rgba(255,237,213,1)] dark:shadow-[4px_4px_0_0_rgba(68,64,60,1)] hover:rotate-1 active:scale-[0.98] transition-all cursor-pointer">
+<div class="w-24 h-24 rounded-[16px] overflow-hidden flex-shrink-0 bg-orange-50 border border-orange-100">
+<img class="w-full h-full object-cover" data-alt="hand-drawn flat illustration of a baby panda sleeping on a cloud, soft pastel drawing, warm whimsy aesthetic, children's book style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUPIIFdlGT2ZVY5LsC7hxEX0YYi9GtMKrK8LKdhwJr67P06yFxdjxT2cupbylgDjlGETeXL5IQlQFHQpi0H8A01xLr5rTYF8T4OZeugwN6uaPoeJqERaqJUVrbzqKMph_Pno7LnWfx6h65NdO8tJ4ix6FJP36uZRjnMvF2FRZ2nYkLwGFrNZu0SikJGgy_8_Rd-DuliQBlkp3mw7yT1dPhyBMYepdndCOP0Ber9mrEBOXu2TCxt0TOF-VWhQDzuQqHUE4r_ArPRR9N"/>
+</div>
+<div class="flex-1 py-1 pr-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-stone-100 text-stone-600 font-bold font-plus-jakarta-sans text-[11px] uppercase tracking-wide px-3 py-1 rounded-xl border border-stone-200">Sleepy</span>
+<span class="font-bold text-[12px] text-stone-400">Yesterday</span>
+</div>
+<h3 class="font-bold text-lg text-stone-800 dark:text-stone-100 mb-1 line-clamp-1 font-plus-jakarta-sans">A Quiet Afternoon</h3>
+<p class="font-medium text-stone-500 dark:text-stone-400 line-clamp-2 text-sm leading-relaxed">Just spent the whole afternoon resting. Sometimes doing absolutely nothing is exactly what you need to recharge.</p>
+</div>
+</article>
+<!-- Journal Entry Card 3 -->
+<article class="bg-white dark:bg-stone-800 rounded-[24px] p-4 flex gap-4 items-center border-2 border-dashed border-orange-200 dark:border-stone-700 shadow-[4px_4px_0_0_rgba(255,237,213,1)] dark:shadow-[4px_4px_0_0_rgba(68,64,60,1)] hover:-rotate-1 active:scale-[0.98] transition-all cursor-pointer">
+<div class="w-24 h-24 rounded-[16px] overflow-hidden flex-shrink-0 bg-orange-50 border border-orange-100">
+<img class="w-full h-full object-cover" data-alt="hand-drawn flat illustration of a panda cub holding a cute star lantern at evening, soft pastel colors, warm whimsy aesthetic, children's book style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCzhmbOv9aSf8QogmwzZ9Mu_OAuAsQ77HP1kZQ0GQ2gB8u_zOGBGxbmgSMa9S4emNB1UxXawznxg7JwJLRrFxXHp59FiWz-FxGH7WYMHScY6iAUSbwU5dtbyvv4HHVLXEe5lTEEcjC8xm5OAzwp40HSEdOFc2lJ-dcLF-5Pz4cSMUHZlI0At1Lt32_KF4D4cfDNXDw07HQmP9mlMFUBdEdzbLhm0r34tWqtWOsraMzivR0M4hOYOmfRwMgEJNoY6AZ6NaFFi4yTDkP"/>
+</div>
+<div class="flex-1 py-1 pr-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-orange-50 text-orange-600 font-bold font-plus-jakarta-sans text-[11px] uppercase tracking-wide px-3 py-1 rounded-xl border border-orange-200">Calm</span>
+<span class="font-bold text-[12px] text-stone-400">Oct 12</span>
+</div>
+<h3 class="font-bold text-lg text-stone-800 dark:text-stone-100 mb-1 line-clamp-1 font-plus-jakarta-sans">Evening Thoughts</h3>
+<p class="font-medium text-stone-500 dark:text-stone-400 line-clamp-2 text-sm leading-relaxed">Reflecting on the small things today. Found a perfectly shaped leaf on my walk back home.</p>
+</div>
+</article>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-orange-50/90 dark:bg-stone-900/90 backdrop-blur-md fixed bottom-4 left-4 right-4 rounded-[2rem] border-2 border-orange-200 dark:border-stone-700 shadow-[0_-4px_10px_rgba(255,179,142,0.15)] z-50 flex justify-around items-center h-20 md:hidden">
+<button class="flex flex-col items-center justify-center text-orange-300 dark:text-stone-500 px-4 py-1.5 hover:text-orange-400 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="home_app_logo">home_app_logo</span>
+<span class="text-[11px] font-bold font-plus-jakarta-sans uppercase tracking-wider">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-orange-200 dark:bg-orange-900/40 text-orange-800 dark:text-orange-100 rounded-2xl px-4 py-1.5 scale-110 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="auto_stories" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="text-[11px] font-bold font-plus-jakarta-sans uppercase tracking-wider">Journal</span>
+</button>
+<button class="flex flex-col items-center justify-center text-orange-300 dark:text-stone-500 px-4 py-1.5 hover:text-orange-400 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="task_alt">task_alt</span>
+<span class="text-[11px] font-bold font-plus-jakarta-sans uppercase tracking-wider">Habits</span>
+</button>
+<button class="flex flex-col items-center justify-center text-orange-300 dark:text-stone-500 px-4 py-1.5 hover:text-orange-400 active:translate-y-0.5 transition-all">
+<span class="material-symbols-outlined mb-1" data-icon="potted_plant">potted_plant</span>
+<span class="text-[11px] font-bold font-plus-jakarta-sans uppercase tracking-wider">Profile</span>
+</button>
+</nav>
+</body></html>
