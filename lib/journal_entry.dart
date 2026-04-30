@@ -20,10 +20,10 @@ class JournalEntryPage extends StatelessWidget {
                 left: 8,
                 child: Transform.rotate(
                   angle: -0.2,
-                  child: const Icon(
+                  child: Icon(
                     Icons.auto_awesome,
                     size: 48,
-                    color: Color.fromRGBO(253, 186, 116, 0.4),
+                    color: BrandColors.primary.withValues(alpha: 0.4),
                   ),
                 ),
               ),
@@ -32,10 +32,10 @@ class JournalEntryPage extends StatelessWidget {
                 right: 16,
                 child: Transform.rotate(
                   angle: 0.2,
-                  child: const Icon(
+                  child: Icon(
                     Icons.spa,
                     size: 64,
-                    color: Color.fromRGBO(253, 186, 116, 0.4),
+                    color: BrandColors.primary.withValues(alpha: 0.4),
                   ),
                 ),
               ),
@@ -88,13 +88,13 @@ class JournalEntryPage extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(255, 247, 237, 0.9),
-          borderRadius: BorderRadius.all(Radius.circular(32)),
+        decoration: BoxDecoration(
+          color: BrandColors.tertiary.withValues(alpha: 0.9),
+          borderRadius: const BorderRadius.all(Radius.circular(32)),
           boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(255, 179, 142, 0.1),
-              offset: Offset(0, 4),
+              color: BrandColors.primary.withValues(alpha: 0.1),
+              offset: const Offset(0, 4),
               blurRadius: 0,
             ),
           ],
@@ -104,10 +104,11 @@ class JournalEntryPage extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.arrow_back, color: Color(0xFFFB923C)),
+              icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 68, 145, 99),
+              ),
               style: IconButton.styleFrom(
                 backgroundColor: Colors.transparent,
-                hoverColor: const Color.fromRGBO(255, 237, 213, 0.5),
+                hoverColor: BrandColors.primary.withValues(alpha: 0.5),
               ),
             ),
             Text(
@@ -116,7 +117,7 @@ class JournalEntryPage extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
                 fontStyle: FontStyle.italic,
-                color: const Color(0xFFFB923C),
+                color: const Color.fromARGB(255, 68, 145, 99),
                 letterSpacing: -0.5,
               ),
             ),
@@ -140,7 +141,7 @@ class JournalEntryPage extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFB923C),
+                  backgroundColor: const Color.fromARGB(255, 68, 145, 99),
                   foregroundColor: Colors.white,
                   elevation: 0,
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -148,7 +149,7 @@ class JournalEntryPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(9999),
                   ),
                 ).copyWith(
-                  shadowColor: WidgetStateProperty.all(const Color.fromRGBO(251, 146, 60, 0.4)),
+                  shadowColor: WidgetStateProperty.all(BrandColors.primary.withValues(alpha: 0.4)),
                   elevation: WidgetStateProperty.resolveWith((states) {
                     if (states.contains(WidgetState.hovered)) return 6;
                     return 4;
@@ -230,10 +231,10 @@ class JournalEntryPage extends StatelessWidget {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFFF7ED),
+                            color: BrandColors.tertiary,
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: const Color(0xFFFFEDD5),
+                              color: BrandColors.primary,
                               width: 2,
                             ),
                           ),
@@ -318,7 +319,7 @@ class JournalEntryPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Color.fromRGBO(254, 215, 170, 0.3),
+                color: BrandColors.primary.withValues(alpha: 0.3),
                 offset: const Offset(0, 4),
                 blurRadius: 0,
               ),
@@ -346,7 +347,7 @@ class JournalEntryPage extends StatelessWidget {
                   child: Icon(
                     Icons.cruelty_free,
                     size: 36,
-                    color: Color(0xFFF97316),
+                    color: BrandColors.primary,
                   ),
                 ),
               ),
