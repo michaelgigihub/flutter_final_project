@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'widgets/stitched_container.dart';
 import 'brand_config.dart';
+import 'widgets/app_bar.dart';
 
 class JournalEntryPage extends StatelessWidget {
   const JournalEntryPage({super.key});
@@ -41,7 +42,62 @@ class JournalEntryPage extends StatelessWidget {
               ),
               Column(
                 children: [
-                  _buildAppBar(context),
+                  ReusableAppBar(
+                    leftWidget: IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.arrow_back, color: BrandColors.natureGreen),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        hoverColor: BrandColors.primary.withValues(alpha: 0.5),
+                      ),
+                    ),
+                    middleWidget: Text(
+                      'Entry',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        fontStyle: FontStyle.italic,
+                        color: BrandColors.natureGreen,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    rightWidget: CustomPaint(
+                      foregroundPainter: DashedBorderPainter(
+                        color: BrandColors.primary,
+                        strokeWidth: 2,
+                        gap: 4,
+                        dashWidth: 6,
+                        borderRadius: 9999,
+                      ),
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit, size: 18, color: Colors.white),
+                        label: Text(
+                          'Edit',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: BrandColors.natureGreen,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9999),
+                          ),
+                        ).copyWith(
+                          shadowColor: WidgetStateProperty.all(BrandColors.primary.withValues(alpha: 0.4)),
+                          elevation: WidgetStateProperty.resolveWith((states) {
+                            if (states.contains(WidgetState.hovered)) return 6;
+                            return 4;
+                          }),
+                        ),
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
@@ -72,92 +128,6 @@ class JournalEntryPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAppBar(BuildContext context) {
-    return CustomPaint(
-      foregroundPainter: DashedBorderPainter(
-        color: BrandColors.primary,
-        strokeWidth: 2,
-        gap: 6,
-        dashWidth: 8,
-        borderRadius: 32,
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        decoration: BoxDecoration(
-          color: BrandColors.tertiary.withValues(alpha: 0.9),
-          borderRadius: const BorderRadius.all(Radius.circular(32)),
-          boxShadow: [
-            BoxShadow(
-              color: BrandColors.primary.withValues(alpha: 0.1),
-              offset: const Offset(0, 4),
-              blurRadius: 0,
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 68, 145, 99),
-              ),
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                hoverColor: BrandColors.primary.withValues(alpha: 0.5),
-              ),
-            ),
-            Text(
-              'Entry',
-              style: GoogleFonts.plusJakartaSans(
-                fontSize: 24,
-                fontWeight: FontWeight.w900,
-                fontStyle: FontStyle.italic,
-                color: const Color.fromARGB(255, 68, 145, 99),
-                letterSpacing: -0.5,
-              ),
-            ),
-            CustomPaint(
-              foregroundPainter: DashedBorderPainter(
-                color: BrandColors.primary,
-                strokeWidth: 2,
-                gap: 4,
-                dashWidth: 6,
-                borderRadius: 9999,
-              ),
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.edit, size: 18, color: Colors.white),
-                label: Text(
-                  'Edit',
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 68, 145, 99),
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(9999),
-                  ),
-                ).copyWith(
-                  shadowColor: WidgetStateProperty.all(BrandColors.primary.withValues(alpha: 0.4)),
-                  elevation: WidgetStateProperty.resolveWith((states) {
-                    if (states.contains(WidgetState.hovered)) return 6;
-                    return 4;
-                  }),
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );

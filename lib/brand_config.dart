@@ -6,6 +6,7 @@ class BrandColors {
   static const Color secondary = Color(0xFF2F2F2F);
   static const Color tertiary = Color(0xFFF0F9F4);
   static const Color neutral = Color(0xFFFFFFFF);
+  static const Color natureGreen = Color(0xFF449163);
 }
 
 class BrandTypography {
