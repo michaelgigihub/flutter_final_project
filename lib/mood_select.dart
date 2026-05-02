@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'brand_config.dart';
 import 'widgets/stitched_container.dart';
-import 'widgets/button_stitch.dart';
+import 'widgets/emotion_button.dart';
 
 class MoodSelectorPage extends StatefulWidget {
   const MoodSelectorPage({super.key});

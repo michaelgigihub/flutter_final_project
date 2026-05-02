@@ -8,6 +8,8 @@ import 'widgets/journal_card.dart';
 import 'widgets/stitched_container.dart';
 import 'utils/formatter.dart';
 import 'journal_entry.dart';
+import 'services/auth_service.dart';
+import 'auth page/login.dart';
 
 class JournalListsPage extends StatefulWidget {
   const JournalListsPage({super.key});
@@ -64,6 +66,68 @@ class _JournalListsPageState extends State<JournalListsPage> {
         mood.contains(_searchQuery);
   }
 
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: BrandColors.neutral,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: BrandColors.primary, width: 2),
+        ),
+        title: Text(
+          'Leaving so soon? 🐼',
+          style: BrandTypography.headlineLg.copyWith(
+            color: BrandColors.natureGreen,
+            fontSize: 22,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to log out?',
+          style: BrandTypography.bodyMd.copyWith(
+            color: BrandColors.secondary,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(
+              'Stay',
+              style: BrandTypography.labelMd.copyWith(
+                color: BrandColors.secondary,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(ctx); // close dialog
+              await AuthService().clearSession();
+              if (!context.mounted) return;
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const LoginPage()),
+                (route) => false,
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: BrandColors.natureGreen,
+              foregroundColor: BrandColors.neutral,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: Text(
+              'Log Out',
+              style: BrandTypography.labelMd.copyWith(
+                color: BrandColors.neutral,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +139,7 @@ class _JournalListsPageState extends State<JournalListsPage> {
               leftWidget: IconButton(
                 padding: const EdgeInsets.all(8),
                 icon: const Icon(Icons.face, color: BrandColors.natureGreen),
-                onPressed: () {},
+                onPressed: () => _showLogoutDialog(context),
               ),
               middleWidget: Text(
                 'PanDiary',
@@ -115,7 +179,7 @@ class _JournalListsPageState extends State<JournalListsPage> {
                       Text(
                         'Your soft reflections',
                         style: BrandTypography.bodyMd.copyWith(
-                          color: BrandColors.secondary.withOpacity(0.6),
+                          color: BrandColors.secondary.withValues(alpha: 0.6),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -135,7 +199,7 @@ class _JournalListsPageState extends State<JournalListsPage> {
                           decoration: InputDecoration(
                             hintText: 'Search your soft thoughts...',
                             hintStyle: BrandTypography.bodyMd.copyWith(
-                              color: BrandColors.secondary.withOpacity(0.4),
+                              color: BrandColors.secondary.withValues(alpha: 0.4),
                             ),
                             prefixIcon: const Icon(
                               Icons.search,
@@ -192,8 +256,8 @@ class _JournalListsPageState extends State<JournalListsPage> {
                                   'Something went wrong 🐼\n${snapshot.error}',
                                   textAlign: TextAlign.center,
                                   style: BrandTypography.bodyMd.copyWith(
-                                    color: BrandColors.secondary.withOpacity(
-                                      0.6,
+                                    color: BrandColors.secondary.withValues(
+                                      alpha: 0.6,
                                     ),
                                   ),
                                 ),
@@ -211,8 +275,8 @@ class _JournalListsPageState extends State<JournalListsPage> {
                                   'No journal entries yet.\nStart writing your story! ✨',
                                   textAlign: TextAlign.center,
                                   style: BrandTypography.bodyMd.copyWith(
-                                    color: BrandColors.secondary.withOpacity(
-                                      0.6,
+                                    color: BrandColors.secondary.withValues(
+                                      alpha: 0.6,
                                     ),
                                   ),
                                 ),
@@ -235,8 +299,8 @@ class _JournalListsPageState extends State<JournalListsPage> {
                                   'No entries match "$_searchQuery" 🐼\nTry a different keyword.',
                                   textAlign: TextAlign.center,
                                   style: BrandTypography.bodyMd.copyWith(
-                                    color: BrandColors.secondary.withOpacity(
-                                      0.6,
+                                    color: BrandColors.secondary.withValues(
+                                      alpha: 0.6,
                                     ),
                                   ),
                                 ),

@@ -3,16 +3,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'journal_list.dart';
 import 'brand_config.dart';
-import 'mood_select.dart';
+import 'auth page/login.dart';
+import 'services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+
+  // Check for an existing session
+  final authService = AuthService();
+  final savedUsername = await authService.getSavedSession();
+
+  runApp(MyApp(isLoggedIn: savedUsername != null));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   // This widget is the root of your application.
   @override
@@ -21,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: BrandConfig.themeData,
-      home: const MoodSelectorPage(),//const JournalListScreen(),
+      home: isLoggedIn ? const JournalListsPage() : const LoginPage(),
     );
   }
 }

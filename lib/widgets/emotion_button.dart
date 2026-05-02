@@ -6,14 +6,12 @@ class ButtonStitch extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
-  final IconData? trailingIcon;
 
   const ButtonStitch({
     super.key,
     required this.label,
     required this.isSelected,
     required this.onTap,
-    this.trailingIcon,
   });
 
   @override
@@ -44,9 +42,9 @@ class ButtonStitch extends StatelessWidget {
             borderRadius: 16,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   label,
@@ -55,14 +53,6 @@ class ButtonStitch extends StatelessWidget {
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
-                if (trailingIcon != null) ...[
-                  const SizedBox(width: 8),
-                  Icon(
-                    trailingIcon,
-                    size: 20,
-                    color: isSelected ? BrandColors.secondary : BrandColors.natureGreen,
-                  ),
-                ],
               ],
             ),
           ),

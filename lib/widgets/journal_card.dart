@@ -70,9 +70,9 @@ class JournalCard extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                           decoration: BoxDecoration(
-                            color: BrandColors.primary.withOpacity(0.2),
+                            color: BrandColors.primary.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: BrandColors.primary.withOpacity(0.3)),
+                            border: Border.all(color: BrandColors.primary.withValues(alpha: 0.3)),
                           ),
                           child: Text(
                             mood,
@@ -87,7 +87,7 @@ class JournalCard extends StatelessWidget {
                         Text(
                           date,
                           style: BrandTypography.labelMd.copyWith(
-                            color: BrandColors.secondary.withOpacity(0.5),
+                            color: BrandColors.secondary.withValues(alpha: 0.5),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -108,7 +108,7 @@ class JournalCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: BrandTypography.bodyMd.copyWith(
-                        color: BrandColors.secondary.withOpacity(0.7),
+                        color: BrandColors.secondary.withValues(alpha: 0.7),
                       ),
                     ),
                   ],

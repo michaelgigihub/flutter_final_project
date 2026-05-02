@@ -32,7 +32,7 @@ class StitchedContainer extends StatelessWidget {
         boxShadow: showShadow
             ? [
                 BoxShadow(
-                  color: BrandColors.primary.withOpacity(0.4),
+                  color: BrandColors.primary.withValues(alpha: 0.4),
                   offset: Offset(shadowOffset, shadowOffset),
                   blurRadius: 0,
                 ),

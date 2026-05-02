@@ -65,6 +65,26 @@ class BrandConfig {
         tertiary: BrandColors.tertiary,
         surface: BrandColors.neutral,
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: BrandColors.tertiary,
+        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        hintStyle: BrandTypography.bodyMd.copyWith(
+          color: BrandColors.secondary.withValues(alpha: 0.4),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: BrandColors.primary, width: 2),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: BrandColors.primary, width: 2),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: BrandColors.natureGreen, width: 2),
+        ),
+      ),
     );
   }
 }
