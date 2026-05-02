@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'journal_list.dart';
 import 'brand_config.dart';
+import 'mood_select.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: BrandConfig.themeData,
-      home: const JournalListsPage(),//const JournalListScreen(),
+      home: const MoodSelectorPage(),//const JournalListScreen(),
     );
   }
 }
