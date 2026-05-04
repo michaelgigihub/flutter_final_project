@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'journal_list.dart';
 import 'brand_config.dart';
 import 'auth page/login.dart';
-import 'services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Check for an existing session
-  final authService = AuthService();
-  final savedUsername = await authService.getSavedSession();
-
-  runApp(MyApp(isLoggedIn: savedUsername != null));
+  runApp(MyApp(isLoggedIn: FirebaseAuth.instance.currentUser != null));
 }
 
 class MyApp extends StatelessWidget {

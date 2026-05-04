@@ -5,10 +5,8 @@ import '../brand_config.dart';
 import '../widgets/stitched_container.dart';
 import '../widgets/button_stitch.dart';
 import '../widgets/app_text_field.dart';
-import '../services/auth_service.dart';
 import 'login.dart';
 import 'pin_input.dart';
-import 'auth_mode.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -19,43 +17,51 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   final TextEditingController _usernameController = TextEditingController();
-  final AuthService _authService = AuthService();
+  final TextEditingController _emailController = TextEditingController();
   bool _isLoading = false;
 
   @override
   void dispose() {
     _usernameController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
   Future<void> _onNextTap() async {
     final username = _usernameController.text.trim();
+    final email = _emailController.text.trim();
 
-    // Validate: not empty
+    // Validate: username not empty
     if (username.isEmpty) {
       _showError('Please enter a username 🐼');
+      return;
+    }
+
+    // Validate: email not empty
+    if (email.isEmpty) {
+      _showError('Please enter your email 🐼');
+      return;
+    }
+
+    // Basic email format validation
+    if (!email.contains('@') || !email.contains('.')) {
+      _showError('Please enter a valid email 🐼');
       return;
     }
 
     setState(() => _isLoading = true);
 
     try {
-      // Validate: unique
-      final exists = await _authService.usernameExists(username);
       if (!mounted) return;
-
-      if (exists) {
-        _showError('That name is already taken! Try another 🐼');
-        return;
-      }
 
       // Navigate to PIN input in create mode
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => PinInputPage(
+            email: email,
             username: username,
-            mode: AuthMode.create,
+            isCreateMode: true,
           ),
         ),
       );
@@ -300,6 +306,24 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     hintText: 'e.g. BambooLover99',
                                     icon: Icons.face,
                                     controller: _usernameController,
+                                  ),
+                                  const SizedBox(height: 20),
+
+                                  // Email Field
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 4.0),
+                                    child: Text(
+                                      'Email',
+                                      style: BrandTypography.labelMd.copyWith(
+                                        color: BrandColors.natureGreen,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  AppTextField(
+                                    hintText: 'e.g. panda@bamboo.com',
+                                    icon: Icons.email_outlined,
+                                    controller: _emailController,
                                   ),
                                   const SizedBox(height: 32),
 

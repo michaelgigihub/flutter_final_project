@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'brand_config.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/journal_card.dart';
 import 'widgets/stitched_container.dart';
 import 'utils/formatter.dart';
 import 'journal_entry.dart';
-import 'services/auth_service.dart';
 import 'auth page/login.dart';
 
 class JournalListsPage extends StatefulWidget {
@@ -101,7 +101,7 @@ class _JournalListsPageState extends State<JournalListsPage> {
           ElevatedButton(
             onPressed: () async {
               Navigator.pop(ctx); // close dialog
-              await AuthService().clearSession();
+              await FirebaseAuth.instance.signOut();
               if (!context.mounted) return;
               Navigator.pushAndRemoveUntil(
                 context,
