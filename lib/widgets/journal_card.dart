@@ -8,6 +8,7 @@ class JournalCard extends StatelessWidget {
   final String date;
   final String title;
   final String content;
+  final VoidCallback? onTap;
 
   const JournalCard({
     super.key,
@@ -16,6 +17,7 @@ class JournalCard extends StatelessWidget {
     required this.date,
     required this.title,
     required this.content,
+    this.onTap,
   });
 
   @override
@@ -27,7 +29,7 @@ class JournalCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(24),
-          onTap: () {},
+          onTap: onTap,
           child: Row(
             children: [
               // Image container
@@ -54,7 +56,10 @@ class JournalCard extends StatelessWidget {
                             );
                           },
                           errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.broken_image, color: Colors.grey),
+                              const Icon(
+                                Icons.broken_image,
+                                color: Colors.grey,
+                              ),
                         )
                       : const Icon(Icons.image, color: Colors.grey),
                 ),
@@ -68,11 +73,16 @@ class JournalCard extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: BrandColors.primary.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: BrandColors.primary.withValues(alpha: 0.3)),
+                            border: Border.all(
+                              color: BrandColors.primary.withValues(alpha: 0.3),
+                            ),
                           ),
                           child: Text(
                             mood,

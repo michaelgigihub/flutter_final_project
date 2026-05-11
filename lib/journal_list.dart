@@ -84,9 +84,7 @@ class _JournalListsPageState extends State<JournalListsPage> {
         ),
         content: Text(
           'Are you sure you want to log out?',
-          style: BrandTypography.bodyMd.copyWith(
-            color: BrandColors.secondary,
-          ),
+          style: BrandTypography.bodyMd.copyWith(color: BrandColors.secondary),
         ),
         actions: [
           TextButton(
@@ -199,7 +197,9 @@ class _JournalListsPageState extends State<JournalListsPage> {
                           decoration: InputDecoration(
                             hintText: 'Search your soft thoughts...',
                             hintStyle: BrandTypography.bodyMd.copyWith(
-                              color: BrandColors.secondary.withValues(alpha: 0.4),
+                              color: BrandColors.secondary.withValues(
+                                alpha: 0.4,
+                              ),
                             ),
                             prefixIcon: const Icon(
                               Icons.search,
@@ -330,6 +330,24 @@ class _JournalListsPageState extends State<JournalListsPage> {
                                   title: data['title'] ?? '',
                                   content: data['content'] ?? '',
                                   date: formattedDate,
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => JournalEntryPage(
+                                          mode: JournalEntryMode.edit,
+                                          initialData: JournalEntryArgs(
+                                            id: doc.id,
+                                            title: data['title'] ?? '',
+                                            content: data['content'] ?? '',
+                                            imagePath: data['image_path'] ?? '',
+                                            mood: data['mood'] ?? '',
+                                            dateLabel: formattedDate,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               );
                             }).toList(),
@@ -348,7 +366,10 @@ class _JournalListsPageState extends State<JournalListsPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const JournalEntryPage()),
+            MaterialPageRoute(
+              builder: (context) =>
+                  const JournalEntryPage(mode: JournalEntryMode.create),
+            ),
           );
         },
         backgroundColor: BrandColors.natureGreen,

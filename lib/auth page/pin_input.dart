@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui' as ui;
 import '../brand_config.dart';
 import '../journal_list.dart';
@@ -84,6 +85,13 @@ class _PinInputPageState extends State<PinInputPage> {
       );
 
       await userCredential.user!.updateDisplayName(widget.username ?? '');
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'username': widget.username ?? '',
+      });
 
       if (!mounted) return;
 
