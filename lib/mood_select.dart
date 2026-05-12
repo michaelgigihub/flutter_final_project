@@ -7,11 +7,7 @@ class MoodSelectorPage extends StatefulWidget {
   final String? initialMood;
   final List<String>? initialEmotions;
 
-  const MoodSelectorPage({
-    super.key,
-    this.initialMood,
-    this.initialEmotions,
-  });
+  const MoodSelectorPage({super.key, this.initialMood, this.initialEmotions});
 
   @override
   State<MoodSelectorPage> createState() => _MoodSelectorPageState();
@@ -20,6 +16,16 @@ class MoodSelectorPage extends StatefulWidget {
 class _MoodSelectorPageState extends State<MoodSelectorPage> {
   double _moodValue = 2.0;
   final Set<String> _selectedEmotions = {'Happy'};
+
+  String get _moodAsset {
+    if (_moodValue == 1.0) {
+      return 'assets/images/moods/Rough.png';
+    }
+    if (_moodValue == 3.0) {
+      return 'assets/images/moods/Amazing.png';
+    }
+    return 'assets/images/moods/Neutral.png';
+  }
 
   @override
   void initState() {
@@ -56,25 +62,34 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
           // Main Content
           SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 56, bottom: 120, left: 20, right: 20),
+              padding: const EdgeInsets.only(
+                top: 56,
+                bottom: 120,
+                left: 20,
+                right: 20,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 8),
                   Text(
                     'How are you feeling?',
-                    style: BrandTypography.headlineMd.copyWith(color: BrandColors.secondary),
+                    style: BrandTypography.headlineMd.copyWith(
+                      color: BrandColors.secondary,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Move the slider to show your mood.',
-                    style: BrandTypography.bodyMd.copyWith(color: BrandColors.secondary.withValues(alpha: 0.7)),
+                    style: BrandTypography.bodyMd.copyWith(
+                      color: BrandColors.secondary.withValues(alpha: 0.7),
+                    ),
                   ),
                   const SizedBox(height: 48),
-                  
+
                   // Central Panda Avatar
                   SizedBox(
-                    width: 224, 
+                    width: 224,
                     height: 224,
                     child: Stack(
                       alignment: Alignment.center,
@@ -85,8 +100,10 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: BrandColors.primary.withValues(alpha: 0.5),
-                                blurRadius: 40, 
+                                color: BrandColors.primary.withValues(
+                                  alpha: 0.5,
+                                ),
+                                blurRadius: 40,
                                 spreadRadius: 10,
                               ),
                             ],
@@ -101,7 +118,9 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: BrandColors.primary.withValues(alpha: 0.4), 
+                                color: BrandColors.primary.withValues(
+                                  alpha: 0.4,
+                                ),
                                 offset: const Offset(0, 8),
                                 blurRadius: 0,
                               ),
@@ -119,7 +138,7 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                               child: Transform.scale(
                                 scale: 1.1,
                                 child: Image.asset(
-                                  'assets/mood_selection.png',
+                                  _moodAsset,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -131,25 +150,29 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                   ),
                   const SizedBox(height: 32),
                   Text(
-                    _moodValue == 1.0 ? 'Rough' : _moodValue == 2.0 ? 'Neutral' : 'Amazing',
+                    _moodValue == 1.0
+                        ? 'Rough'
+                        : _moodValue == 2.0
+                        ? 'Neutral'
+                        : 'Amazing',
                     style: BrandTypography.headlineMd.copyWith(
                       color: BrandColors.natureGreen,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 32),
-                  
+
                   // Mood Scale Slider Area
                   Container(
                     decoration: BoxDecoration(
-                      color: BrandColors.neutral, 
+                      color: BrandColors.neutral,
                       borderRadius: BorderRadius.circular(32),
                       boxShadow: [
                         BoxShadow(
-                          color: BrandColors.primary.withValues(alpha: 0.2), 
+                          color: BrandColors.primary.withValues(alpha: 0.2),
                           offset: const Offset(0, 4),
                           blurRadius: 0,
-                        )
+                        ),
                       ],
                     ),
                     child: CustomPaint(
@@ -166,12 +189,19 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                           children: [
                             SliderTheme(
                               data: SliderTheme.of(context).copyWith(
-                                activeTrackColor: BrandColors.natureGreen.withValues(alpha: 0.7),
-                                inactiveTrackColor: BrandColors.primary.withValues(alpha: 0.4),
+                                activeTrackColor: BrandColors.natureGreen
+                                    .withValues(alpha: 0.7),
+                                inactiveTrackColor: BrandColors.primary
+                                    .withValues(alpha: 0.4),
                                 trackHeight: 12.0,
                                 thumbColor: BrandColors.neutral,
-                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 18.0, elevation: 4),
-                                overlayColor: BrandColors.primary.withValues(alpha: 0.2),
+                                thumbShape: const RoundSliderThumbShape(
+                                  enabledThumbRadius: 18.0,
+                                  elevation: 4,
+                                ),
+                                overlayColor: BrandColors.primary.withValues(
+                                  alpha: 0.2,
+                                ),
                               ),
                               child: Slider(
                                 value: _moodValue,
@@ -189,8 +219,22 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Rough', style: BrandTypography.labelMd.copyWith(color: BrandColors.natureGreen.withValues(alpha: 0.8))),
-                                Text('Amazing', style: BrandTypography.labelMd.copyWith(color: BrandColors.natureGreen.withValues(alpha: 0.8))),
+                                Text(
+                                  'Rough',
+                                  style: BrandTypography.labelMd.copyWith(
+                                    color: BrandColors.natureGreen.withValues(
+                                      alpha: 0.8,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Amazing',
+                                  style: BrandTypography.labelMd.copyWith(
+                                    color: BrandColors.natureGreen.withValues(
+                                      alpha: 0.8,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
@@ -199,13 +243,15 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  
+
                   // Emotion Tags Grid
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "What's making you feel this way?",
-                      style: BrandTypography.labelMd.copyWith(color: BrandColors.secondary.withValues(alpha: 0.7)),
+                      style: BrandTypography.labelMd.copyWith(
+                        color: BrandColors.secondary.withValues(alpha: 0.7),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -234,18 +280,17 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                         onTap: () {},
                         child: Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xFFE7E5E4), 
+                            color: const Color(0xFFE7E5E4),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: CustomPaint(
                             foregroundPainter: DashedBorderPainter(
-                              color: const Color(0xFFD6D3D1), 
+                              color: const Color(0xFFD6D3D1),
                               strokeWidth: 2,
                               dashWidth: 8,
                               gap: 6,
                               borderRadius: 16,
                             ),
-                            
                           ),
                         ),
                       ),
@@ -255,13 +300,17 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
               ),
             ),
           ),
-          
+
           // Back Button
           Positioned(
             top: MediaQuery.of(context).padding.top + 8,
             left: 16,
             child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: BrandColors.natureGreen, size: 28),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: BrandColors.natureGreen,
+                size: 28,
+              ),
               onPressed: () {
                 if (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
@@ -274,11 +323,14 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: GestureDetector(
         onTap: () {
-          final moodLabel = _moodValue == 1.0 ? 'Rough' : _moodValue == 2.0 ? 'Neutral' : 'Amazing';
-          Navigator.of(context).pop({
-            'mood': moodLabel,
-            'emotions': _selectedEmotions.toList(),
-          });
+          final moodLabel = _moodValue == 1.0
+              ? 'Rough'
+              : _moodValue == 2.0
+              ? 'Neutral'
+              : 'Amazing';
+          Navigator.of(
+            context,
+          ).pop({'mood': moodLabel, 'emotions': _selectedEmotions.toList()});
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -290,7 +342,7 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                 color: BrandColors.natureGreen.withValues(alpha: 0.3),
                 offset: const Offset(0, 6),
                 blurRadius: 0,
-              )
+              ),
             ],
           ),
           child: CustomPaint(
@@ -307,7 +359,10 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.check_circle_outline, color: BrandColors.neutral),
+                  const Icon(
+                    Icons.check_circle_outline,
+                    color: BrandColors.neutral,
+                  ),
                   const SizedBox(width: 8),
                   Text(
                     'Save Mood',
