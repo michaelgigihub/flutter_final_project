@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:ui' as ui;
 import '../brand_config.dart';
 import '../journal_list.dart';
+import '../widgets/falling_leaves.dart';
 
 class PinInputPage extends StatefulWidget {
   final String email;
@@ -190,20 +190,26 @@ class _PinInputPageState extends State<PinInputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BrandColors.tertiary,
+      backgroundColor: const Color(0xFFF9F8E6),
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset('assets/images/pin_bg.jpg',
-                fit: BoxFit.cover),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ui.ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-              child: Container(
-                  color: BrandColors.tertiary.withValues(alpha: 0.8)),
+          // Grass footer at bottom
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Image.asset(
+              'assets/images/grass_footer.png',
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
             ),
           ),
+          // Falling leaves effect
+          const FallingLeavesWidget(
+            fadeOutFraction: 0.35,
+            leafCount: 12,
+          ),
+          // Back button
           Positioned(
             top: 0,
             left: 0,
@@ -226,41 +232,14 @@ class _PinInputPageState extends State<PinInputPage> {
                     const SizedBox(height: 32),
                     Column(
                       children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: BrandColors.neutral,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: BrandColors.primary, width: 2),
-                            boxShadow: [
-                              BoxShadow(
-                                color: BrandColors.primary
-                                    .withValues(alpha: 0.2),
-                                blurRadius: 0,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                          child: Icon(
-                            widget.isCreateMode
-                                ? (_isConfirming
-                                    ? Icons.verified
-                                    : Icons.lock_open)
-                                : Icons.lock,
-                            color: BrandColors.natureGreen,
-                            size: 40,
-                          ),
+                        Image.asset(
+                          'assets/images/panda_lock.gif',
+                          height: 170,
+                          fit: BoxFit.contain,
                         ),
-                        const SizedBox(height: 24),
-                        Text(_headerTitle,
-                            style: BrandTypography.headlineLg
-                                .copyWith(color: BrandColors.natureGreen)),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 16),
                         Text(_headerSubtitle,
-                            style: BrandTypography.bodyMd.copyWith(
+                            style: BrandTypography.headlineMd.copyWith(
                                 color: BrandColors.secondary
                                     .withValues(alpha: 0.8))),
                         const SizedBox(height: 48),
@@ -363,25 +342,86 @@ class _PinInputPageState extends State<PinInputPage> {
   }
 
   Widget _buildNumberButton(String number) {
-    return GestureDetector(
+    return _AnimatedNumberButton(
+      number: number,
       onTap: () => _onNumberTap(number),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: BrandColors.neutral,
-          shape: BoxShape.circle,
-          border: Border.all(color: BrandColors.primary, width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: BrandColors.primary.withValues(alpha: 0.5),
-              blurRadius: 0,
-              offset: const Offset(0, 4),
-            ),
-          ],
+    );
+  }
+}
+
+class _AnimatedNumberButton extends StatefulWidget {
+  final String number;
+  final VoidCallback onTap;
+
+  const _AnimatedNumberButton({
+    required this.number,
+    required this.onTap,
+  });
+
+  @override
+  State<_AnimatedNumberButton> createState() => _AnimatedNumberButtonState();
+}
+
+class _AnimatedNumberButtonState extends State<_AnimatedNumberButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 120),
+      reverseDuration: const Duration(milliseconds: 200),
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.85).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _handleTap() async {
+    await _controller.forward();
+    widget.onTap();
+    await _controller.reverse();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _handleTap,
+      child: AnimatedBuilder(
+        animation: _scaleAnimation,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: _scaleAnimation.value,
+            child: child,
+          );
+        },
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: BrandColors.neutral,
+            shape: BoxShape.circle,
+            border: Border.all(color: BrandColors.primary, width: 2),
+            boxShadow: [
+              BoxShadow(
+                color: BrandColors.primary.withValues(alpha: 0.5),
+                blurRadius: 0,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Text(widget.number,
+              style: BrandTypography.headlineLg
+                  .copyWith(color: BrandColors.secondary)),
         ),
-        child: Text(number,
-            style: BrandTypography.headlineLg
-                .copyWith(color: BrandColors.secondary)),
       ),
     );
   }

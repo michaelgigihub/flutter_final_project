@@ -16,26 +16,10 @@ class ReusableAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      foregroundPainter: DashedBorderPainter(
-        color: BrandColors.primary,
-        strokeWidth: 2,
-        gap: 6,
-        dashWidth: 8,
-        borderRadius: 32,
-      ),
-      child: Container(
+    return Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        decoration: BoxDecoration(
-          color: BrandColors.tertiary.withValues(alpha: 0.9),
-          borderRadius: const BorderRadius.all(Radius.circular(32)),
-          boxShadow: [
-            BoxShadow(
-              color: BrandColors.primary.withValues(alpha: 0.1),
-              offset: const Offset(0, 4),
-              blurRadius: 0,
-            ),
-          ],
+        decoration: const BoxDecoration(
+          color: Colors.transparent,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +29,6 @@ class ReusableAppBar extends StatelessWidget {
             rightWidget ?? const SizedBox(),
           ],
         ),
-      ),
-    );
+      );
   }
 }

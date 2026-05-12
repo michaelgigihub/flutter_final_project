@@ -130,9 +130,11 @@ class _JournalListsPageState extends State<JournalListsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BrandColors.tertiary,
-      body: SafeArea(
-        child: Column(
+      backgroundColor: const Color(0xFFF9F8E6),
+      body: Container(
+        color: const Color(0xFFF9F8E6),
+        child: SafeArea(
+          child: Column(
           children: [
             ReusableAppBar(
               leftWidget: IconButton(
@@ -140,13 +142,10 @@ class _JournalListsPageState extends State<JournalListsPage> {
                 icon: const Icon(Icons.face, color: BrandColors.natureGreen),
                 onPressed: () => _showLogoutDialog(context),
               ),
-              middleWidget: Text(
-                'PanDiary',
-                style: BrandTypography.headlineLg.copyWith(
-                  color: BrandColors.natureGreen,
-                  fontStyle: FontStyle.italic,
-                  letterSpacing: -0.5,
-                ),
+              middleWidget: Image.asset(
+                'assets/images/PanDiary.png',
+                height: 120,
+                fit: BoxFit.contain,
               ),
               rightWidget: IconButton(
                 padding: const EdgeInsets.all(8),
@@ -394,6 +393,7 @@ class _JournalListsPageState extends State<JournalListsPage> {
             ),
           ],
         ),
+      ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

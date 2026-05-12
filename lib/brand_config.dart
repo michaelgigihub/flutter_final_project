@@ -10,36 +10,36 @@ class BrandColors {
 }
 
 class BrandTypography {
-  // headline-lg: Plus Jakarta Sans, 28px, 700, lh 36px
-  static TextStyle headlineLg = GoogleFonts.plusJakartaSans(
+  // headline-lg
+  static TextStyle headlineLg = GoogleFonts.sourGummy(
     fontSize: 28,
     fontWeight: FontWeight.w700,
     height: 36 / 28,
   );
 
-  // headline-md: Plus Jakarta Sans, 22px, 700, lh 28px
-  static TextStyle headlineMd = GoogleFonts.plusJakartaSans(
+  // headline-md
+  static TextStyle headlineMd = GoogleFonts.sourGummy(
     fontSize: 20,
     fontWeight: FontWeight.w700,
     height: 28 / 20,
   );
 
-  // body-lg: Be Vietnam Pro, 18px, 500, lh 26px
-  static TextStyle bodyLg = GoogleFonts.beVietnamPro(
+  // body-lg
+  static TextStyle bodyLg = GoogleFonts.sourGummy(
     fontSize: 18,
     fontWeight: FontWeight.w500,
     height: 26 / 18,
   );
 
-  // body-md: Be Vietnam Pro, 16px, 400, lh 24px
-  static TextStyle bodyMd = GoogleFonts.beVietnamPro(
+  // body-md
+  static TextStyle bodyMd = GoogleFonts.sourGummy(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 24 / 14,
   );
 
-  // label-md: Be Vietnam Pro, 14px, 600, lh 20px, ls 0.02em
-  static TextStyle labelMd = GoogleFonts.beVietnamPro(
+  // label-md
+  static TextStyle labelMd = GoogleFonts.sourGummy(
     fontSize: 14,
     fontWeight: FontWeight.w600,
     height: 20 / 14,

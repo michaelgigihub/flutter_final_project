@@ -9,6 +9,7 @@ import 'pin_input.dart';
 import '../journal_list.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../widgets/falling_leaves.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -118,61 +119,26 @@ class _LoginPageState extends State<LoginPage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: BrandColors.tertiary,
+      backgroundColor: const Color(0xFFF9F8E6),
       body: Stack(
         children: [
+          // Grass footer at bottom
           Positioned(
-            top: screenHeight * 0.15,
-            left: -screenWidth * 0.2,
-            child: _buildBlurredCircle(
-              color: BrandColors.primary.withValues(alpha: 0.2),
-              size: 256,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Image.asset(
+              'assets/images/grass_footer.png',
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
             ),
           ),
-          Positioned(
-            top: screenHeight * 0.90,
-            right: -screenWidth * 0.2,
-            child: _buildBlurredCircle(
-              color: BrandColors.primary.withValues(alpha: 0.2),
-              size: 288,
-            ),
+          // Falling leaves effect
+          const FallingLeavesWidget(
+            fadeOutFraction: 0.35,
+            leafCount: 12,
           ),
-          Positioned(
-            top: screenHeight * 0.08,
-            left: 20,
-            child: Transform.rotate(
-              angle: -0.2,
-              child: Icon(
-                Icons.auto_awesome,
-                size: 48,
-                color: BrandColors.primary.withValues(alpha: 0.4),
-              ),
-            ),
-          ),
-          Positioned(
-            top: screenHeight * 0.15,
-            right: 20,
-            child: Transform.rotate(
-              angle: 0.2,
-              child: Icon(
-                Icons.spa,
-                size: 64,
-                color: BrandColors.primary.withValues(alpha: 0.4),
-              ),
-            ),
-          ),
-          Positioned(
-            top: screenHeight * 0.25,
-            right: -20,
-            child: Transform.rotate(
-              angle: 0.5,
-              child: Icon(
-                Icons.eco,
-                size: 56,
-                color: BrandColors.primary.withValues(alpha: 0.3),
-              ),
-            ),
-          ),
+          // Main content
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -184,31 +150,70 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.only(bottom: 24),
-                      height: MediaQuery.of(context).size.height * 0.22,
-                      constraints: const BoxConstraints(maxWidth: 320),
-                      child: Image.asset(
-                        'assets/images/panda_login.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    Container(
                       margin: const EdgeInsets.only(bottom: 32),
-                      child: Column(
+                      height: 180,
+                      child: Stack(
+                        clipBehavior: Clip.none,
                         children: [
-                          Text(
-                            'Panda Journal',
-                            style: BrandTypography.headlineLg.copyWith(
-                              color: BrandColors.natureGreen,
-                              fontSize: 32,
+                          // Panda on the left
+                          Positioned(
+                            left: -20,
+                            bottom: 0,
+                            child: Image.asset(
+                              'assets/images/panda_wave.gif',
+                              height: 180,
+                              fit: BoxFit.contain,
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Your cozy digital sanctuary.',
-                            style: BrandTypography.bodyMd.copyWith(
-                              color: BrandColors.secondary.withValues(
-                                alpha: 0.7,
+                          // Speech bubble (single seamless shape)
+                          Positioned(
+                            left: 130,
+                            top: 0,
+                            right: 0,
+                            child: CustomPaint(
+                              painter: _SpeechBubblePainter(
+                                fillColor: Colors.white,
+                                borderColor: BrandColors.natureGreen,
+                                borderWidth: 2,
+                                radius: 20,
+                                tailWidth: 14,
+                                tailHeight: 10,
+                                tailPosition: 30,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: 'Welcome back to ',
+                                            style: BrandTypography.bodyMd.copyWith(
+                                              color: BrandColors.secondary.withValues(alpha: 0.8),
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: 'PanDiary',
+                                            style: BrandTypography.bodyMd.copyWith(
+                                              color: BrandColors.natureGreen,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: '! Ready to drift back into your cozy stream of thoughts?',
+                                            style: BrandTypography.bodyMd.copyWith(
+                                              color: BrandColors.secondary.withValues(alpha: 0.8),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -332,21 +337,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildBlurredCircle({required Color color, required double size}) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color.withValues(alpha: 0.5),
-      ),
-      child: BackdropFilter(
-        filter: ui.ImageFilter.blur(sigmaX: 40, sigmaY: 40),
-        child: Container(color: Colors.transparent),
-      ),
-    );
-  }
-
   Widget _buildLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0),
@@ -356,4 +346,84 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+class _SpeechBubblePainter extends CustomPainter {
+  final Color fillColor;
+  final Color borderColor;
+  final double borderWidth;
+  final double radius;
+  final double tailWidth;
+  final double tailHeight;
+  final double tailPosition; // vertical position of tail tip on left side
+
+  _SpeechBubblePainter({
+    required this.fillColor,
+    required this.borderColor,
+    this.borderWidth = 2,
+    this.radius = 20,
+    this.tailWidth = 14,
+    this.tailHeight = 10,
+    this.tailPosition = 30,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final r = radius;
+
+    // Tail attaches on the left edge, centered at tailPosition
+    final tailTop = tailPosition - tailWidth / 2;
+    final tailBottom = tailPosition + tailWidth / 2;
+
+    final path = Path();
+
+    // Start at top-left corner (after radius)
+    path.moveTo(r, 0);
+    // Top edge
+    path.lineTo(w - r, 0);
+    // Top-right corner
+    path.arcToPoint(Offset(w, r), radius: Radius.circular(r));
+    // Right edge
+    path.lineTo(w, h - r);
+    // Bottom-right corner
+    path.arcToPoint(Offset(w - r, h), radius: Radius.circular(r));
+    // Bottom edge
+    path.lineTo(r, h);
+    // Bottom-left corner
+    path.arcToPoint(Offset(0, h - r), radius: Radius.circular(r));
+    // Left edge down to tail bottom
+    path.lineTo(0, tailBottom);
+    // Tail point (goes left, towards the panda)
+    path.lineTo(-tailHeight, tailPosition);
+    // Tail back to left edge top
+    path.lineTo(0, tailTop);
+    // Left edge up to top-left corner
+    path.lineTo(0, r);
+    // Top-left corner
+    path.arcToPoint(Offset(r, 0), radius: Radius.circular(r));
+
+    path.close();
+
+    // Draw shadow
+    canvas.drawShadow(path, borderColor.withValues(alpha: 0.15), 6, false);
+
+    // Fill
+    final fillPaint = Paint()
+      ..color = fillColor
+      ..style = PaintingStyle.fill;
+    canvas.drawPath(path, fillPaint);
+
+    // Border
+    final borderPaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth
+      ..strokeJoin = StrokeJoin.round;
+    canvas.drawPath(path, borderPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
