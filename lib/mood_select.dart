@@ -4,7 +4,14 @@ import 'widgets/stitched_container.dart';
 import 'widgets/emotion_button.dart';
 
 class MoodSelectorPage extends StatefulWidget {
-  const MoodSelectorPage({super.key});
+  final String? initialMood;
+  final List<String>? initialEmotions;
+
+  const MoodSelectorPage({
+    super.key,
+    this.initialMood,
+    this.initialEmotions,
+  });
 
   @override
   State<MoodSelectorPage> createState() => _MoodSelectorPageState();
@@ -12,7 +19,25 @@ class MoodSelectorPage extends StatefulWidget {
 
 class _MoodSelectorPageState extends State<MoodSelectorPage> {
   double _moodValue = 2.0;
-  String _selectedEmotion = 'Happy';
+  final Set<String> _selectedEmotions = {'Happy'};
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialMood == 'Rough') {
+      _moodValue = 1.0;
+    } else if (widget.initialMood == 'Amazing') {
+      _moodValue = 3.0;
+    } else {
+      _moodValue = 2.0;
+    }
+
+    if (widget.initialEmotions != null && widget.initialEmotions!.isNotEmpty) {
+      _selectedEmotions
+        ..clear()
+        ..addAll(widget.initialEmotions!);
+    }
+  }
 
   final List<String> _emotions = [
     'Happy',
@@ -189,13 +214,17 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                     runSpacing: 8,
                     children: [
                       ..._emotions.map((emotion) {
-                        final isSelected = _selectedEmotion == emotion;
+                        final isSelected = _selectedEmotions.contains(emotion);
                         return ButtonStitch(
                           label: emotion,
                           isSelected: isSelected,
                           onTap: () {
                             setState(() {
-                              _selectedEmotion = emotion;
+                              if (isSelected) {
+                                _selectedEmotions.remove(emotion);
+                              } else {
+                                _selectedEmotions.add(emotion);
+                              }
                             });
                           },
                         );
@@ -245,7 +274,11 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: GestureDetector(
         onTap: () {
-          // Save Mood
+          final moodLabel = _moodValue == 1.0 ? 'Rough' : _moodValue == 2.0 ? 'Neutral' : 'Amazing';
+          Navigator.of(context).pop({
+            'mood': moodLabel,
+            'emotions': _selectedEmotions.toList(),
+          });
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),

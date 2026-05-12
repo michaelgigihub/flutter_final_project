@@ -8,8 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'widgets/stitched_container.dart';
 import 'widgets/journal_badge.dart';
+import 'widgets/button_stitch.dart';
 import 'brand_config.dart';
 import 'widgets/app_bar.dart';
+import 'mood_select.dart';
 
 enum JournalEntryMode { create, edit }
 
@@ -19,6 +21,7 @@ class JournalEntryArgs {
   final String? content;
   final String? imagePath;
   final String? mood;
+  final List<String>? emotions;
   final String? dateLabel;
   final String? weatherLabel;
 
@@ -28,6 +31,7 @@ class JournalEntryArgs {
     this.content,
     this.imagePath,
     this.mood,
+    this.emotions,
     this.dateLabel,
     this.weatherLabel,
   });
@@ -57,6 +61,9 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
   final ImagePicker _imagePicker = ImagePicker();
   Uint8List? _pickedImageBytes;
   bool _isInitialImageRemoved = false;
+  
+  String _mood = 'Neutral';
+  List<String> _emotions = [];
 
   @override
   void initState() {
@@ -66,6 +73,8 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
     _contentController = TextEditingController(text: data?.content ?? '');
     _entryId = data?.id;
     _imagePath = data?.imagePath ?? '';
+    _mood = data?.mood ?? '';
+    _emotions = data?.emotions ?? [];
     _isEditing = widget.mode == JournalEntryMode.create;
   }
 
@@ -132,6 +141,8 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
         'content': _contentController.text.trim(),
         'image_path': imageUrl,
         'user_id': user.uid,
+        'mood': _mood,
+        'emotions': _emotions,
       };
 
       if (widget.mode == JournalEntryMode.create) {
@@ -179,6 +190,26 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
         _isInitialImageRemoved = true;
       }
     });
+  }
+
+  Future<void> _openMoodSelector() async {
+    if (!_isEditing) return;
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MoodSelectorPage(
+          initialMood: _mood,
+          initialEmotions: _emotions,
+        ),
+      ),
+    );
+
+    if (result != null && result is Map<String, dynamic>) {
+      setState(() {
+        _mood = result['mood'] as String;
+        _emotions = result['emotions'] as List<String>;
+      });
+    }
   }
 
   @override
@@ -330,6 +361,16 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                           _buildPolaroid(),
                           const SizedBox(height: 16),
                           _buildJournalText(),
+                          const SizedBox(height: 16),
+                          if (_isEditing)
+                            Center(
+                              child: ButtonStitch(
+                                label: 'Mood',
+                                isSelected: false,
+                                trailingIcon: Icons.add_reaction_outlined,
+                                onTap: _openMoodSelector,
+                              ),
+                            ),
                         ],
                       ),
                     ),
@@ -345,9 +386,7 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
 
   Widget _buildMetadata() {
     final data = widget.initialData;
-    final dateLabel = data?.dateLabel ?? 'October 24, 2023';
-    final moodLabel = data?.mood ?? 'Cozy';
-    final weatherLabel = data?.weatherLabel ?? 'Sunny';
+    final dateLabel = data?.dateLabel ?? 'Today';
 
     return Wrap(
       spacing: 8,
@@ -360,20 +399,13 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
           textColor: const Color(0xFF9A3412),
           borderColor: const Color(0xFFFDBA74),
         ),
-        JournalBadge(
-          icon: Icons.sentiment_very_satisfied,
-          label: moodLabel,
-          backgroundColor: const Color(0xFFFFE4E6),
-          textColor: const Color(0xFF9F1239),
-          borderColor: const Color(0xFFFDA4AF),
-        ),
-        JournalBadge(
+        ..._emotions.map((emotion) => JournalBadge(
           icon: Icons.wb_sunny,
-          label: weatherLabel,
+          label: emotion,
           backgroundColor: const Color(0xFFE0F2FE),
           textColor: const Color(0xFF075985),
           borderColor: const Color(0xFF7DD3FC),
-        ),
+        )),
       ],
     );
   }
@@ -440,15 +472,16 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'So peaceful...',
-                        style: TextStyle(
-                          fontFamily: 'Comic Sans MS',
-                          fontSize: 18,
-                          color: Color(0xFF78716C),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      if (_mood.isNotEmpty)
+                        JournalBadge(
+                          icon: Icons.sentiment_very_satisfied,
+                          label: _mood,
+                          backgroundColor: const Color(0xFFFFE4E6),
+                          textColor: const Color(0xFF9F1239),
+                          borderColor: const Color(0xFFFDA4AF),
+                        )
+                      else
+                        const SizedBox(height: 24),
                     ],
                   ),
                   if (hasImage)

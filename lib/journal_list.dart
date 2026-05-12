@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'brand_config.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/journal_card.dart';
@@ -324,30 +325,62 @@ class _JournalListsPageState extends State<JournalListsPage> {
 
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 16.0),
-                                child: JournalCard(
-                                  imagePath: data['image_path'] ?? '',
-                                  mood: data['mood'] ?? '',
-                                  title: data['title'] ?? '',
-                                  content: data['content'] ?? '',
-                                  date: formattedDate,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => JournalEntryPage(
-                                          mode: JournalEntryMode.edit,
-                                          initialData: JournalEntryArgs(
-                                            id: doc.id,
-                                            title: data['title'] ?? '',
-                                            content: data['content'] ?? '',
-                                            imagePath: data['image_path'] ?? '',
-                                            mood: data['mood'] ?? '',
-                                            dateLabel: formattedDate,
-                                          ),
-                                        ),
+                                child: Slidable(
+                                  key: ValueKey(doc.id),
+                                  endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    extentRatio: 0.25,
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          FirebaseFirestore.instance
+                                              .collection('journal_entries')
+                                              .doc(doc.id)
+                                              .delete();
+                                        },
+                                        backgroundColor: Colors.redAccent,
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.delete,
+                                        label: 'Delete',
+                                        borderRadius: BorderRadius.circular(16),
                                       ),
-                                    );
-                                  },
+                                    ],
+                                  ),
+                                  child: JournalCard(
+                                    imagePath: data['image_path'] ?? '',
+                                    mood: data['mood'] ?? '',
+                                    title: data['title'] ?? '',
+                                    content: data['content'] ?? '',
+                                    date: formattedDate,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              JournalEntryPage(
+                                                mode: JournalEntryMode.edit,
+                                                initialData: JournalEntryArgs(
+                                                  id: doc.id,
+                                                  title: data['title'] ?? '',
+                                                  content:
+                                                      data['content'] ?? '',
+                                                  imagePath:
+                                                      data['image_path'] ?? '',
+                                                  mood: data['mood'] ?? '',
+                                                  emotions:
+                                                      (data['emotions']
+                                                              as List<dynamic>?)
+                                                          ?.map(
+                                                            (e) => e.toString(),
+                                                          )
+                                                          .toList(),
+                                                  dateLabel: formattedDate,
+                                                ),
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               );
                             }).toList(),
