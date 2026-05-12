@@ -366,7 +366,7 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                             Center(
                               child: ButtonStitch(
                                 label: 'Mood',
-                                isSelected: false,
+                                isSelected: true,
                                 trailingIcon: Icons.add_reaction_outlined,
                                 onTap: _openMoodSelector,
                               ),
