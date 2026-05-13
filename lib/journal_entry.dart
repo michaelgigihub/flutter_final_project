@@ -85,7 +85,6 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
     super.dispose();
   }
 
-  // Check if the entry has any actual content
   bool get _hasContent {
     return _titleController.text.trim().isNotEmpty ||
         _contentController.text.trim().isNotEmpty ||

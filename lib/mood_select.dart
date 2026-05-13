@@ -46,7 +46,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
     }
   }
 
-  // Mood-based emotion options
   List<String> get _emotions {
     if (_moodValue == 1.0) {
       return ['Angry', 'Anxious', 'Overwhelmed', 'Ashamed', 'Embarrassed'];
@@ -76,7 +75,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
             fadeOutFraction: 0.35,
             leafCount: 12,
           ),
-          // Main Content
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(
@@ -104,14 +102,12 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                   ),
                   const SizedBox(height: 48),
 
-                  // Central Panda Avatar
                   SizedBox(
                     width: 224,
                     height: 224,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        // Decorative glow
                         Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -126,7 +122,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                             ],
                           ),
                         ),
-                        // Avatar Container
                         Container(
                           width: 224,
                           height: 224,
@@ -179,7 +174,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                   ),
                   const SizedBox(height: 32),
 
-                  // Mood Scale Slider Area
                   Container(
                     decoration: BoxDecoration(
                       color: BrandColors.neutral,
@@ -263,7 +257,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                   ),
                   const SizedBox(height: 32),
 
-                  // Emotion Tags Grid
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -294,7 +287,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                           },
                         );
                       }),
-                      // Custom Button
                       GestureDetector(
                         onTap: () {},
                         child: Container(
@@ -320,7 +312,6 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
             ),
           ),
 
-          // Back Button
           Positioned(
             top: MediaQuery.of(context).padding.top + 8,
             left: 16,

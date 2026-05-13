@@ -12,6 +12,7 @@ import 'utils/formatter.dart';
 import 'journal_entry.dart';
 import 'auth page/login.dart';
 import 'widgets/falling_leaves.dart';
+import 'settings_page.dart';
 
 class JournalListsPage extends StatefulWidget {
   const JournalListsPage({super.key});
@@ -166,7 +167,6 @@ class _JournalListsPageState extends State<JournalListsPage> {
           SafeArea(
             child: Column(
           children: [
-            // Top buttons row
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               child: Row(
@@ -182,12 +182,16 @@ class _JournalListsPageState extends State<JournalListsPage> {
                     imagePath: 'assets/images/settings_icon.png',
                     width: 40,
                     height: 40,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const SettingsPage()),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
-            // Panda mascot with speech bubble
             Container(
               margin: const EdgeInsets.only(top: 24, bottom: 8),
               height: 160,
@@ -241,7 +245,6 @@ class _JournalListsPageState extends State<JournalListsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      // Search Bar
                       StitchedContainer(
                         borderRadius: 16,
                         showShadow: false,
@@ -289,11 +292,9 @@ class _JournalListsPageState extends State<JournalListsPage> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Firestore StreamBuilder – reads journal entries in real time
                       StreamBuilder<QuerySnapshot>(
                         stream: _journalStream,
                         builder: (context, snapshot) {
-                          // Loading state
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return const Center(
@@ -306,7 +307,6 @@ class _JournalListsPageState extends State<JournalListsPage> {
                             );
                           }
 
-                          // Error state
                           if (snapshot.hasError) {
                             return Center(
                               child: Padding(
@@ -324,7 +324,6 @@ class _JournalListsPageState extends State<JournalListsPage> {
                             );
                           }
 
-                          // Empty collection state
                           if (!snapshot.hasData ||
                               snapshot.data!.docs.isEmpty) {
                             return Center(
@@ -343,13 +342,11 @@ class _JournalListsPageState extends State<JournalListsPage> {
                             );
                           }
 
-                          // Filter documents by the current search query
                           final filteredDocs = snapshot.data!.docs.where((doc) {
                             final data = doc.data() as Map<String, dynamic>;
                             return _matchesQuery(data);
                           }).toList();
 
-                          // No results after filtering
                           if (filteredDocs.isEmpty) {
                             return Center(
                               child: Padding(
@@ -367,12 +364,10 @@ class _JournalListsPageState extends State<JournalListsPage> {
                             );
                           }
 
-                          // Build journal cards from filtered results
                           return Column(
                             children: filteredDocs.map((doc) {
                               final data = doc.data() as Map<String, dynamic>;
 
-                              // Formatting date
                               String formattedDate = 'Unknown';
                               if (data['date'] != null &&
                                   data['date'] is Timestamp) {
@@ -476,7 +471,6 @@ class _JournalListsPageState extends State<JournalListsPage> {
     );
   }
 
-  // Time-based panda asset
   String _getPandaAsset() {
     final hour = DateTime.now().hour;
     if (hour >= 5 && hour < 12) {
@@ -488,7 +482,6 @@ class _JournalListsPageState extends State<JournalListsPage> {
     }
   }
 
-  // Time-based speech bubble text with username
   List<TextSpan> _getSpeechBubbleText() {
     final hour = DateTime.now().hour;
     final name = _username.isNotEmpty ? _username : 'friend';

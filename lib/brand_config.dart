@@ -10,35 +10,30 @@ class BrandColors {
 }
 
 class BrandTypography {
-  // headline-lg
   static TextStyle headlineLg = GoogleFonts.sourGummy(
     fontSize: 28,
     fontWeight: FontWeight.w700,
     height: 36 / 28,
   );
 
-  // headline-md
   static TextStyle headlineMd = GoogleFonts.sourGummy(
     fontSize: 20,
     fontWeight: FontWeight.w700,
     height: 28 / 20,
   );
 
-  // body-lg
   static TextStyle bodyLg = GoogleFonts.sourGummy(
     fontSize: 18,
     fontWeight: FontWeight.w500,
     height: 26 / 18,
   );
 
-  // body-md
   static TextStyle bodyMd = GoogleFonts.sourGummy(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     height: 24 / 14,
   );
 
-  // label-md
   static TextStyle labelMd = GoogleFonts.sourGummy(
     fontSize: 14,
     fontWeight: FontWeight.w600,

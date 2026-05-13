@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
 
   const MyApp({super.key, required this.isLoggedIn});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

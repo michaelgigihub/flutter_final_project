@@ -32,7 +32,6 @@ class JournalCard extends StatelessWidget {
           onTap: onTap,
           child: Row(
             children: [
-              // Image container
               Container(
                 width: 96,
                 height: 96,
@@ -65,7 +64,6 @@ class JournalCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              // Content
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
