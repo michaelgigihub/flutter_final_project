@@ -195,11 +195,11 @@ class _JournalListsPageState extends State<JournalListsPage> {
                 clipBehavior: Clip.none,
                 children: [
                   Positioned(
-                    left: 10,
+                    left: -10,
                     bottom: 0,
                     child: Image.asset(
                       _getPandaAsset(),
-                      height: 150,
+                      height: 170,
                       fit: BoxFit.contain,
                     ),
                   ),
