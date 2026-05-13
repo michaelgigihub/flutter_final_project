@@ -33,8 +33,10 @@ class _JournalListsPageState extends State<JournalListsPage> {
   @override
   void initState() {
     super.initState();
+    final String? currentUserId = FirebaseAuth.instance.currentUser?.uid;
     _journalStream = FirebaseFirestore.instance
         .collection('journal_entries')
+        .where('user_id', isEqualTo: currentUserId)
         .snapshots();
   }
 
