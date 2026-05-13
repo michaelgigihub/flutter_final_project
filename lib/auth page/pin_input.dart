@@ -26,7 +26,6 @@ class _PinInputPageState extends State<PinInputPage> {
   final int _pinLength = 6;
   bool _isLoading = false;
 
-  /// For create-mode PIN confirmation flow.
   String? _firstPin;
   bool _isConfirming = false;
 
@@ -75,7 +74,7 @@ class _PinInputPageState extends State<PinInputPage> {
       return;
     }
 
-    // PINs match — create the user via Firebase Auth
+    // Create user in Firebase
     setState(() => _isLoading = true);
     try {
       var userCredential =
@@ -193,7 +192,6 @@ class _PinInputPageState extends State<PinInputPage> {
       backgroundColor: const Color(0xFFF9F8E6),
       body: Stack(
         children: [
-          // Grass footer at bottom
           Positioned(
             left: 0,
             right: 0,
@@ -204,12 +202,10 @@ class _PinInputPageState extends State<PinInputPage> {
               fit: BoxFit.fitWidth,
             ),
           ),
-          // Falling leaves effect
           const FallingLeavesWidget(
             fadeOutFraction: 0.35,
             leafCount: 12,
           ),
-          // Back button
           Positioned(
             top: 0,
             left: 0,

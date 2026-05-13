@@ -122,7 +122,6 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color(0xFFF9F8E6),
       body: Stack(
         children: [
-          // Grass footer at bottom
           Positioned(
             left: 0,
             right: 0,
@@ -133,12 +132,10 @@ class _LoginPageState extends State<LoginPage> {
               fit: BoxFit.fitWidth,
             ),
           ),
-          // Falling leaves effect
           const FallingLeavesWidget(
             fadeOutFraction: 0.35,
             leafCount: 12,
           ),
-          // Main content
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -155,7 +152,6 @@ class _LoginPageState extends State<LoginPage> {
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          // Panda on the left
                           Positioned(
                             left: -20,
                             bottom: 0,
@@ -165,7 +161,6 @@ class _LoginPageState extends State<LoginPage> {
                               fit: BoxFit.contain,
                             ),
                           ),
-                          // Speech bubble (single seamless shape)
                           Positioned(
                             left: 130,
                             top: 0,
@@ -373,49 +368,32 @@ class _SpeechBubblePainter extends CustomPainter {
     final h = size.height;
     final r = radius;
 
-    // Tail attaches on the left edge, centered at tailPosition
     final tailTop = tailPosition - tailWidth / 2;
     final tailBottom = tailPosition + tailWidth / 2;
 
     final path = Path();
-
-    // Start at top-left corner (after radius)
     path.moveTo(r, 0);
-    // Top edge
     path.lineTo(w - r, 0);
-    // Top-right corner
     path.arcToPoint(Offset(w, r), radius: Radius.circular(r));
-    // Right edge
     path.lineTo(w, h - r);
-    // Bottom-right corner
     path.arcToPoint(Offset(w - r, h), radius: Radius.circular(r));
-    // Bottom edge
     path.lineTo(r, h);
-    // Bottom-left corner
     path.arcToPoint(Offset(0, h - r), radius: Radius.circular(r));
-    // Left edge down to tail bottom
     path.lineTo(0, tailBottom);
-    // Tail point (goes left, towards the panda)
     path.lineTo(-tailHeight, tailPosition);
-    // Tail back to left edge top
     path.lineTo(0, tailTop);
-    // Left edge up to top-left corner
     path.lineTo(0, r);
-    // Top-left corner
     path.arcToPoint(Offset(r, 0), radius: Radius.circular(r));
 
     path.close();
 
-    // Draw shadow
     canvas.drawShadow(path, borderColor.withValues(alpha: 0.15), 6, false);
 
-    // Fill
     final fillPaint = Paint()
       ..color = fillColor
       ..style = PaintingStyle.fill;
     canvas.drawPath(path, fillPaint);
 
-    // Border
     final borderPaint = Paint()
       ..color = borderColor
       ..style = PaintingStyle.stroke

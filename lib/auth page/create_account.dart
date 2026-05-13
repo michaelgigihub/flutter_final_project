@@ -32,19 +32,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     final username = _usernameController.text.trim();
     final email = _emailController.text.trim();
 
-    // Validate: username not empty
     if (username.isEmpty) {
       _showError('Please enter a username 🐼');
       return;
     }
 
-    // Validate: email not empty
     if (email.isEmpty) {
       _showError('Please enter your email 🐼');
       return;
     }
 
-    // Basic email format validation
     if (!email.contains('@') || !email.contains('.')) {
       _showError('Please enter a valid email 🐼');
       return;
@@ -55,7 +52,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     try {
       if (!mounted) return;
 
-      // Navigate to PIN input in create mode
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -91,7 +87,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Calculate total screen height regardless of keyboard to prevent background movement
     final screenHeight = MediaQuery.of(context).size.height + MediaQuery.of(context).viewInsets.bottom;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -99,7 +94,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       backgroundColor: const Color(0xFFF9F8E6),
       body: Stack(
         children: [
-          // Grass footer at bottom
           Positioned(
             left: 0,
             right: 0,
@@ -110,7 +104,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               fit: BoxFit.fitWidth,
             ),
           ),
-          // Falling leaves effect
           const FallingLeavesWidget(
             fadeOutFraction: 0.35,
             leafCount: 12,
@@ -123,14 +116,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Panda + Speech Bubble
                     Container(
                       margin: const EdgeInsets.only(bottom: 32),
                       height: 180,
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          // Panda on the left
                           Positioned(
                             left: -30,
                             bottom: 0,
@@ -140,7 +131,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               fit: BoxFit.contain,
                             ),
                           ),
-                          // Speech bubble (single seamless shape)
                           Positioned(
                             left: 130,
                             top: 0,
@@ -195,7 +185,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       ),
                     ),
 
-                    // Form Container
                     SizedBox(
                       width: double.infinity,
                       child: ConstrainedBox(
@@ -206,7 +195,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           child: Stack(
                             clipBehavior: Clip.none,
                             children: [
-                              // Decorative Tape
                               Positioned(
                                 top: -36, 
                                 left: 0,
@@ -236,11 +224,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 ),
                               ),
 
-                              // Form Fields
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Username Field
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
@@ -258,7 +244,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   const SizedBox(height: 20),
 
-                                  // Email Field
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
                                     child: Text(
@@ -276,7 +261,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   const SizedBox(height: 32),
 
-                                  // Next Button
                                   SizedBox(
                                     width: double.infinity,
                                     child: _isLoading
@@ -299,7 +283,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       ),
                     ),
 
-                    // Already have an account
                     const SizedBox(height: 32),
                     GestureDetector(
                       onTap: () {
