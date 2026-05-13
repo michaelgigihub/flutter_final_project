@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'brand_config.dart';
 import 'widgets/stitched_container.dart';
 import 'widgets/emotion_button.dart';
+import 'widgets/falling_leaves.dart';
 
 class MoodSelectorPage extends StatefulWidget {
   final String? initialMood;
@@ -56,9 +57,22 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BrandColors.tertiary,
+      backgroundColor: const Color(0xFFF9F8E6),
       body: Stack(
         children: [
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/grass_footer.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const FallingLeavesWidget(
+            fadeOutFraction: 0.35,
+            leafCount: 12,
+          ),
           // Main Content
           SafeArea(
             child: SingleChildScrollView(

@@ -215,37 +215,15 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BrandColors.tertiary,
-      body: SafeArea(
-        child: CustomPaint(
-          painter: PaperGridPainter(),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 48,
-                left: 8,
-                child: Transform.rotate(
-                  angle: -0.2,
-                  child: Icon(
-                    Icons.auto_awesome,
-                    size: 48,
-                    color: BrandColors.primary.withValues(alpha: 0.4),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 96,
-                right: 16,
-                child: Transform.rotate(
-                  angle: 0.2,
-                  child: Icon(
-                    Icons.spa,
-                    size: 64,
-                    color: BrandColors.primary.withValues(alpha: 0.4),
-                  ),
-                ),
-              ),
-              Column(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/pandiary_bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
                 children: [
                   ReusableAppBar(
                     leftWidget: IconButton(
@@ -261,7 +239,7 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                     ),
                     middleWidget: Text(
                       'Entry',
-                      style: GoogleFonts.plusJakartaSans(
+                      style: GoogleFonts.sourGummy(
                         fontSize: 24,
                         fontWeight: FontWeight.w900,
                         fontStyle: FontStyle.italic,
@@ -269,55 +247,56 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                         letterSpacing: -0.5,
                       ),
                     ),
-                    rightWidget: CustomPaint(
-                      foregroundPainter: DashedBorderPainter(
-                        color: BrandColors.primary,
-                        strokeWidth: 2,
-                        gap: 4,
-                        dashWidth: 6,
-                        borderRadius: 9999,
-                      ),
-                      child: ElevatedButton.icon(
-                        onPressed: _isSaving ? null : _toggleEdit,
-                        icon: Icon(
-                          _isEditing ? Icons.check : Icons.edit,
-                          size: 18,
-                          color: Colors.white,
+                    rightWidget: GestureDetector(
+                      onTap: _isSaving ? null : _toggleEdit,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: BrandColors.natureGreen,
+                          borderRadius: BorderRadius.circular(9999),
+                          boxShadow: [
+                            BoxShadow(
+                              color: BrandColors.primary.withValues(alpha: 0.4),
+                              offset: const Offset(0, 4),
+                              blurRadius: 0,
+                            ),
+                          ],
                         ),
-                        label: Text(
-                          _isSaving
-                              ? 'Saving...'
-                              : (_isEditing ? 'Done' : 'Edit'),
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                        child: CustomPaint(
+                          foregroundPainter: DashedBorderPainter(
+                            color: BrandColors.primary,
+                            strokeWidth: 2,
+                            gap: 4,
+                            dashWidth: 6,
+                            borderRadius: 9999,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  _isEditing ? Icons.check : Icons.edit,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  _isSaving
+                                      ? 'Saving...'
+                                      : (_isEditing ? 'Done' : 'Edit'),
+                                  style: GoogleFonts.sourGummy(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        style:
-                            ElevatedButton.styleFrom(
-                              backgroundColor: BrandColors.natureGreen,
-                              foregroundColor: Colors.white,
-                              elevation: 0,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(9999),
-                              ),
-                            ).copyWith(
-                              shadowColor: WidgetStateProperty.all(
-                                BrandColors.primary.withValues(alpha: 0.4),
-                              ),
-                              elevation: WidgetStateProperty.resolveWith((
-                                states,
-                              ) {
-                                if (states.contains(WidgetState.hovered))
-                                  return 6;
-                                return 4;
-                              }),
-                            ),
                       ),
                     ),
                   ),
@@ -338,7 +317,7 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                             showCursor: _isEditing,
                             enableInteractiveSelection: _isEditing,
                             maxLines: null,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -346,10 +325,17 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                               disabledBorder: InputBorder.none,
                               filled: false,
                               hintText: 'Add a title',
+                              hintStyle: GoogleFonts.sourGummy(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                height: 1.28,
+                                letterSpacing: -0.56,
+                                color: const Color(0xFF292524).withValues(alpha: 0.4),
+                              ),
                               isDense: true,
                               contentPadding: EdgeInsets.zero,
                             ),
-                            style: GoogleFonts.plusJakartaSans(
+                            style: GoogleFonts.sourGummy(
                               fontSize: 28,
                               fontWeight: FontWeight.w800,
                               height: 1.28,
@@ -377,10 +363,8 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
     );
   }
 
@@ -575,7 +559,7 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                   enableInteractiveSelection: _isEditing,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
@@ -583,10 +567,16 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                     disabledBorder: InputBorder.none,
                     filled: false,
                     hintText: 'Write your journal entry here...',
+                    hintStyle: GoogleFonts.sourGummy(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF44403C).withValues(alpha: 0.4),
+                      height: 1.77,
+                    ),
                     isDense: true,
                     contentPadding: EdgeInsets.zero,
                   ),
-                  style: GoogleFonts.plusJakartaSans(
+                  style: GoogleFonts.sourGummy(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: const Color(0xFF44403C),
@@ -648,18 +638,3 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
   }
 }
 
-class PaperGridPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = BrandColors.primary
-      ..strokeWidth = 2;
-
-    for (double y = 0; y < size.height; y += 32) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
