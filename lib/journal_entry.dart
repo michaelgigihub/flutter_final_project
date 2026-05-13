@@ -85,9 +85,21 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
     super.dispose();
   }
 
+  // Check if the entry has any actual content
+  bool get _hasContent {
+    return _titleController.text.trim().isNotEmpty ||
+        _contentController.text.trim().isNotEmpty ||
+        _pickedImageBytes != null ||
+        (_imagePath != null && _imagePath!.isNotEmpty && !_isInitialImageRemoved);
+  }
+
   Future<void> _toggleEdit() async {
     if (_isSaving) return;
     if (_isEditing) {
+      if (!_hasContent) {
+        _showSnackBar('Add a title or content before saving 🐼');
+        return;
+      }
       FocusScope.of(context).unfocus();
       final saved = await _saveEntry();
       if (!saved) return;
@@ -212,6 +224,64 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
     }
   }
 
+  void _handleBackPress() {
+    if (_isEditing && _hasContent) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: BrandColors.neutral,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: const BorderSide(color: BrandColors.primary, width: 2),
+          ),
+          title: Text(
+            'Unsaved changes 🐼',
+            style: BrandTypography.headlineLg.copyWith(
+              color: BrandColors.natureGreen,
+              fontSize: 22,
+            ),
+          ),
+          content: Text(
+            'You have unsaved changes. Are you sure you want to go back?',
+            style: BrandTypography.bodyMd.copyWith(color: BrandColors.secondary),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: Text(
+                'Stay',
+                style: BrandTypography.labelMd.copyWith(
+                  color: BrandColors.secondary,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: BrandColors.natureGreen,
+                foregroundColor: BrandColors.neutral,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                'Discard',
+                style: BrandTypography.labelMd.copyWith(
+                  color: BrandColors.neutral,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,7 +297,7 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                 children: [
                   ReusableAppBar(
                     leftWidget: IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
+                      onPressed: () => _handleBackPress(),
                       icon: const Icon(
                         Icons.arrow_back,
                         color: BrandColors.natureGreen,
@@ -235,16 +305,6 @@ class _JournalEntryPageState extends State<JournalEntryPage> {
                       style: IconButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         hoverColor: BrandColors.primary.withValues(alpha: 0.5),
-                      ),
-                    ),
-                    middleWidget: Text(
-                      'Entry',
-                      style: GoogleFonts.sourGummy(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                        fontStyle: FontStyle.italic,
-                        color: BrandColors.natureGreen,
-                        letterSpacing: -0.5,
                       ),
                     ),
                     rightWidget: GestureDetector(

@@ -16,7 +16,7 @@ class MoodSelectorPage extends StatefulWidget {
 
 class _MoodSelectorPageState extends State<MoodSelectorPage> {
   double _moodValue = 2.0;
-  final Set<String> _selectedEmotions = {'Happy'};
+  final Set<String> _selectedEmotions = {};
 
   String get _moodAsset {
     if (_moodValue == 1.0) {
@@ -46,13 +46,16 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
     }
   }
 
-  final List<String> _emotions = [
-    'Happy',
-    'Joyful',
-    'Peaceful',
-    'Tired',
-    'Sad',
-  ];
+  // Mood-based emotion options
+  List<String> get _emotions {
+    if (_moodValue == 1.0) {
+      return ['Angry', 'Anxious', 'Overwhelmed', 'Ashamed', 'Embarrassed'];
+    } else if (_moodValue == 3.0) {
+      return ['Happy', 'Excited', 'Passionate', 'Joyful', 'Proud'];
+    } else {
+      return ['Content', 'Calm', 'Peaceful', 'Indifferent'];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -225,6 +228,8 @@ class _MoodSelectorPageState extends State<MoodSelectorPage> {
                                 onChanged: (value) {
                                   setState(() {
                                     _moodValue = value;
+                                    // Clear selections that don't belong to new mood
+                                    _selectedEmotions.retainAll(_emotions);
                                   });
                                 },
                               ),
